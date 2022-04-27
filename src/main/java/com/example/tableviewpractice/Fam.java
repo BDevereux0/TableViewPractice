@@ -46,12 +46,16 @@ public class Fam extends Application implements Serializable  {
         List list = new ArrayList();
         list.add(fam);
         System.out.println(list.get(0));
-        ObjectOutputStream oos;
+        ObjectOutputStream oos = null;
         try {
-            oos = new ObjectOutputStream(new FileOutputStream("object.text"));
+            oos = new ObjectOutputStream(new FileOutputStream("object.dat"));
             oos.writeObject(list);
         }catch(FileNotFoundException e){
             System.out.println("file not found");
+        }catch(NotSerializableException e){
+            System.out.println("Cannot serialize");
+        } finally {
+            oos.close();
         }
 
         /*Scene scene = new Scene(new Group());
